@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./images/background-image/money-pie-chart-svgrepo-com.svg"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Top logo section -->
+    <header>
+      <img
+        src="./images/background-image/money-pie-chart-svgrepo-com.svg"
+        alt="Expense Tracker Logo"
+        class="logo"
+      />
+    </header>
+
+    <!-- heading section -->
+    <div class="hero">
+      <h1>Your Time Matters,<br />Don’t Spend It on Expense Management</h1>
+      <p class="tagline">
+        We’re here to help you track and manage everything effortlessly.
+      </p>
+      <button class="signup-btn">Sign Up</button>
+    </div>
+
+    <!-- pop-up for sign up -->
+    <div id="sign_up_pop_up_form">
+      <div class="sign_up_box">
+        <div id="cross">X</div>
+        <h2 id="authTitle">Login</h2>
+        <input
+          type="email"
+          name="email"
+          id="email_id"
+          class="input_box"
+          placeholder="Enter email"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="input_box"
+          placeholder="Enter password"
+        />
+        <button id="login_btn">Login</button>
+
+        <p style="font-size: 12px; cursor: pointer" id="switchToSignup">
+          Don't have an account?
+          <a href="#"><span style="color: blue">Sign up</span></a>
+        </p>
+
+        <p><a href="#" id="forgotPassword">Forget password?</a></p>
+
+        <div
+          id="authMessage"
+          class="auth-message"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+    <!-- my app script -->
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker - Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div
+      class="sidebar"
+      id="sidebar"
+      role="navigation"
+      aria-label="Main Sidebar"
+    >
+      <div class="avatar" id="userAvatar">U</div>
+      <div class="user_email" id="userEmail">Loading...</div>
+      <input
+        type="file"
+        id="avatarUpload"
+        accept="image/*"
+        style="display: none"
+      />
+
+      <nav>
+        <button data-section="home" class="active">
+          <i class="fa-solid fa-house-chimney"></i><span>Home</span>
+        </button>
+        <button data-section="expenses">
+          <i class="fa-solid fa-wallet"></i><span>Expenses</span>
+        </button>
+        <button data-section="income">
+          <i class="fa-solid fa-money-bills"></i><span>Income</span>
+        </button>
+        <button data-section="settings">
+          <i class="fa-solid fa-gears"></i><span>Settings</span>
+        </button>
+      </nav>
+
+      <button class="logout_btn" id="logoutBtn">
+        <i class="fa-solid fa-right-from-bracket"></i><span>Log out</span>
+      </button>
+    </div>
+
+    <!-- Hamburger (bars) -->
+      <button class="hamburger" id="hamburger">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Close (X) -->
+      <button class="close-sidebar" id="closeSidebar">
+        <i class="fa-solid fa-times"></i>
+      </button>
+
+    <!-- Main Content -->
+    <div class="main" id="main_content">
+      <div class="content_section">
+        <h2>Quick Access</h2>
+        <hr />
+        <div class="quick-actions">
+          <button id="addExpenseBtn">+ New Expense</button>
+          <button id="addIncomeBtn">+ Add Income</button>
+        </div>
+      </div>
+
+      <div class="content_section">
+        <h2>Transactions</h2>
+        <hr />
+        <div class="transactions-wrapper">
+          <!-- table start from here -->
+          <table>
+            <!-- table header  -->
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+
+            <!-- table body -->
+            <tbody id="transactionTableBody"></tbody>
+
+            <!-- table footer -->
+            <tfoot>
+              <tr>
+                <td colspan="4">Total Income</td>
+                <td id="totalIncome">$0</td>
+              </tr>
+              <tr>
+                <td colspan="4">Total Expenses</td>
+                <td id="totalExpenses">$0</td>
+              </tr>
+              <tr>
+                <td colspan="4">Net Balance</td>
+                <td id="netBalance">$0</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div class="content_section" id="settingsSection" style="display: none">
+        <h2>Manage Categories</h2>
+        <hr />
+        <ul id="categoryList"></ul>
+        <input type="text" id="newCategoryInput" placeholder="New category" />
+        <button id="addCategoryBtn">Add Category</button>
+
+        <h2>Currency Settings</h2>
+        <hr />
+        <label for="currencySelect">Choose Currency:</label>
+        <select id="currencySelect">
+          <option value="USD">US Dollar ($)</option>
+          <option value="INR">Indian Rupee (₹)</option>
+          <option value="EUR">Euro (€)</option>
+          <option value="GBP">British Pound (£)</option>
+          <option value="JPY">Japanese Yen (¥)</option>
+          <option value="AUD">Australian Dollar (A$)</option>
+          <option value="CAD">Canadian Dollar (C$)</option>
+        </select>
+      </div>
+
+
+    <!-- Modal -->
+    <div
+      id="transactionModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal-content">
+        <span class="closeBtn" role="button" aria-label="Close">&times;</span>
+        <h2 id="modalTitle">Add Transaction</h2>
+        <form id="transactionForm">
+          <label>Date:</label>
+          <input type="date" id="txDate" required /><br />
+
+          <label>Description:</label>
+          <input
+            type="text"
+            id="txDescription"
+            placeholder="Enter description"
+            required
+          /><br />
+
+          <label>Category:</label>
+          <select id="txCategory" required></select
+          ><br />
+
+          <label>Amount:</label>
+          <input
+            type="number"
+            id="txAmount"
+            placeholder="Enter amount"
+            required
+          /><br />
+
+          <label>Type:</label>
+          <input type="text" id="txType" readonly /><br />
+
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyDXmHFMemjxSNv9agnAdBCIpyBBlMYA-F8",
+        authDomain: "expense-tracker-web-ap.firebaseapp.com",
+        projectId: "expense-tracker-web-ap",
+        storageBucket: "expense-tracker-web-ap.firebasestorage.app",
+        messagingSenderId: "801037078061",
+        appId: "1:801037078061:web:e3810c6883f1a0ca2172a4",
+        measurementId: "G-QCV1P7ZJRJ",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+    <script src="dashboard.js"></script>
+
+  </body>
+</html>

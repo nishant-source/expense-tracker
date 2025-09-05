@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url("./images/background-image/left-side-background-svg.svg")
+      no-repeat left top,
+    url("./images/background-image/right-side-background-svg.svg") no-repeat
+      right bottom,
+    #000;
+  background-size: auto;
+  /* add the background SVG with the black background for creating the glowing effect */
+  background-blend-mode: screen;
+  min-height: 100vh;
+  /* width: 100vw; */
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  color: white;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  width: 60px;
+  height: auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.5;
+  color: white;
+  margin-bottom: 20px;
+}
+.tagline {
+  margin-bottom: 20px;
+}
+
+.signup-btn {
+  background-color: #00d639;
+  color: black;
+  padding: 12px 100px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.signup-btn:hover {
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+/* sign up pop form come from bottom */
+#sign_up_pop_up_form {
+  background-color: #009127;
+  width: 65vw;
+  height: fit-content;
+  position: fixed;
+  bottom: -100%;
+  margin: 0 auto;
+  z-index: 1;
+  border-top-left-radius: 120px;
+  border-top-right-radius: 120px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  opacity: 0;
+  transition: bottom 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+#sign_up_pop_up_form.active {
+  bottom: 0;
+  opacity: 1;
+}
+
+.sign_up_box {
+  margin: 20px auto;
+  padding: 20px;
+  width: 500px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#cross {
+  background-color: white;
+  color: black;
+  font-size: 30px;
+  width: 50px;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+#cross:hover {
+  background-color: red;
+  color: white;
+}
+
+.input_box {
+  padding: 10px;
+  border-radius: 10px;
+  border: 0px;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+.input_box:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(241, 241, 241, 0.6);
+}
+
+#login_btn {
+  padding: 10px;
+  border-radius: 10px;
+  border: 0px;
+  width: 80%;
+  margin: 0 auto;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+#login_btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.auth-message {
+  width: 80%;
+  margin: 12px auto 0;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+  max-width: 420px;
+}
+
+.auth-message.error {
+  background: rgba(255, 0, 0, 0.12);
+  color: #ffdddd;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+.auth-message.ok {
+  background: rgba(0, 200, 0, 0.08);
+  color: #dfffe0;
+  border: 1px solid rgba(0, 200, 0, 0.12);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  .signup-btn {
+    padding: 10px 34px;
+    font-size: 1rem;
+  }
+  .sign_up_box {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 500px) {
+  #sign_up_pop_up_form {
+    width: 90vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #sign_up_pop_up_form {
+    width: 100vw;
+  }
+}

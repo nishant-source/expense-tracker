@@ -1,0 +1,412 @@
+/* Base layout */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  color: white;
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 20vw;
+  min-height: 100vh;
+  background-color: #181818;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px 0px 5px 0px;
+  transition: width 0.3s ease;
+}
+
+.sidebar .user_email {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.sidebar .avatar {
+  display: none; /* will show only in small view */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: teal;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  text-transform: uppercase;
+}
+
+.sidebar nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar button {
+  text-align: left;
+  width: 80%;
+  padding: 10px;
+  background-color: #222;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar button i {
+  margin-right: 8px;
+}
+
+.sidebar button:hover {
+  background-color: #333;
+}
+
+.sidebar button:focus,
+.sidebar button.active {
+  color: rgb(0, 229, 229);
+  font-weight: bold;
+  background-color: black;
+}
+
+#logoutBtn {
+  text-align: center; /*why this property is not working, I don't get it*/
+  place-content: center;
+  width: 80%;
+  margin: 10%;
+  padding: 10px;
+  background-color: crimson;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Main content */
+.main {
+  margin-left: 20vw;
+  flex-grow: 1;
+  background-color: black;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.content_section {
+  background-color: #181818;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+/* Quick actions */
+.quick-actions {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.quick-actions button {
+  padding: 15px 20px;
+  background-color: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.quick-actions button:hover {
+  background-color: #036a5e;
+  transition: background-color 0.6s;
+}
+
+/* Transactions section */
+.content_section:last-child {
+  flex: 1; /* stretch the last section */
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+}
+
+.transactions-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* prevent stretching */
+}
+
+/* Table layout */
+table {
+  border-collapse: collapse;
+  border: 1px solid #333;
+  table-layout: fixed; /* keep columns aligned */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh; /* now, the tbody will scroll when I fix the maximom height */
+}
+
+thead,
+tfoot {
+  flex: 0 0 auto; /* fixed height */
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+tbody {
+  flex: 1 1 auto; /* increase automatically to fill space */
+  display: block;
+  overflow-y: auto;
+  width: 100%;
+  overflow-x: hidden; /* it should not scroll left or right */
+}
+
+tbody tr {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #111;
+}
+
+@media (max-width: 800px) {
+  tbody {
+    overflow-x: auto; /* now, it should scroll when necessary */
+  }
+}
+
+th,
+td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: left;
+  word-wrap: break-word;
+  width: 90px;
+}
+
+thead {
+  background-color: #222;
+}
+
+tfoot {
+  background-color: #111;
+  font-weight: bold;
+}
+
+/* settings  */
+#categoryList li button {
+  margin-left: 10px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 700px) {
+  .sidebar {
+    width: 60px;
+    padding: 10px 0;
+  }
+
+  .sidebar .user_email {
+    display: none;
+  }
+
+  .sidebar .avatar {
+    display: flex;
+  }
+
+  .sidebar button {
+    justify-content: center;
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .sidebar button span {
+    display: none;
+  }
+
+  .sidebar button i {
+    margin: 0;
+  }
+
+  .main {
+    margin-left: 60px;
+  }
+}
+
+.hamburger {
+  max-height: 30px;
+}
+
+@media (max-width: 500px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+    transition: transform 0.7s ease-in-out;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .hamburger {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    cursor: pointer;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+}
+/* cross for closing sidebar */
+.close-sidebar {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  cursor: pointer;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+}
+
+@media (max-width: 500px) {
+  .close-sidebar {
+    display: none; /* hidden until sidebar is active */
+  }
+
+  .sidebar.active + .close-sidebar {
+    display: block; /* show close button only when sidebar is active */
+  }
+}
+
+/* Modal Background */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #181818;
+  padding: 20px;
+  border-radius: 5px;
+  width: 350px;
+  color: white;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.modal-content label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #111;
+  color: white;
+}
+
+.modal-content button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: teal;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background: #028080;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.editBtn,
+.deleteBtn {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 14px;
+}
+
+.editBtn:hover {
+  color: yellow;
+}
+
+.deleteBtn:hover {
+  color: crimson;
+}
+/* Color coding for transactions */
+.amount.income,
+.type.income {
+  color: lightgreen;
+  font-weight: bold;
+}
+
+.amount.expense,
+.type.expense {
+  color: crimson;
+  font-weight: bold;
+}
