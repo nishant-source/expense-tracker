@@ -5,9 +5,9 @@
 }
 
 body {
-  background: url("./images/background-image/left-side-background-svg.svg")
+  background: url("./images/left-side-background-svg.svg")
       no-repeat left top,
-    url("./images/background-image/right-side-background-svg.svg") no-repeat
+    url("./images/right-side-background-svg.svg") no-repeat
       right bottom,
     #000;
   background-size: auto;
