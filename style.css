@@ -5,11 +5,8 @@
 }
 
 body {
-  background: url("./images/left-side-background-svg.svg")
-      no-repeat left top,
-    url("./images/right-side-background-svg.svg") no-repeat
-      right bottom,
-    #000;
+  background: url("./images/left-side-background-svg.svg") no-repeat left top,
+    url("./images/right-side-background-svg.svg") no-repeat right bottom, #000;
   background-size: auto;
   /* add the background SVG with the black background for creating the glowing effect */
   background-blend-mode: screen;
@@ -60,10 +57,10 @@ h1 {
 }
 
 /* sign up pop form come from bottom */
-#sign_up_pop_up_form {
+/* #sign_up_pop_up_form {
   background-color: #009127;
   width: 65vw;
-  height: fit-content;
+  /* height: fit-content; 
   position: fixed;
   bottom: -100%;
   margin: 0 auto;
@@ -78,6 +75,44 @@ h1 {
 #sign_up_pop_up_form.active {
   bottom: 0;
   opacity: 1;
+} */
+
+#sign_up_pop_up_form {
+  background-color: #009127;
+  width: 65vw;
+  /* height: fit-content; /* apple things are not working very good with this css property */
+  min-height: 40vh;
+  position: fixed;
+  bottom: 0;
+  transform: translateY(100%); /* hidden in 100% below of screen */
+  margin: 0 auto;
+  z-index: 1;
+  border-top-left-radius: 120px;
+  border-top-right-radius: 120px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  opacity: 0;
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  transform-origin: bottom center;
+}
+
+#sign_up_pop_up_form.active {
+  transform: translateY(0); /* slide up into place */
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) and (min-width: 500px) {
+  #sign_up_pop_up_form {
+    width: 90vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #sign_up_pop_up_form {
+    width: 100vw;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
 }
 
 .sign_up_box {
@@ -166,17 +201,5 @@ h1 {
   }
   .sign_up_box {
     width: 80%;
-  }
-}
-
-@media screen and (max-width: 768px) and (min-width: 500px) {
-  #sign_up_pop_up_form {
-    width: 90vw;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  #sign_up_pop_up_form {
-    width: 100vw;
   }
 }

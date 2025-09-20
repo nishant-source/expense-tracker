@@ -85,7 +85,7 @@ document.querySelectorAll(".sidebar button").forEach((btn) => {
 const closeSidebar = document.getElementById("closeSidebar");
 
 hamburger.addEventListener("click", () => {
-  sidebar.classList.add("active");
+  sidebar.classList.add("active"); //add the active class to make it appear
   hamburger.style.display = "none";
   closeSidebar.style.display = "block";
   // show text labels again when sidebar is active
@@ -95,7 +95,7 @@ hamburger.addEventListener("click", () => {
 });
 
 closeSidebar.addEventListener("click", () => {
-  sidebar.classList.remove("active");
+  sidebar.classList.remove("active"); //remove the active class to make it disappear (but it is not working as expected)
   closeSidebar.style.display = "none";
   hamburger.style.display = "block";
   // hide text labels again when sidebar is collapsed

@@ -113,6 +113,7 @@ body {
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 5px;
+  max-width: 90vw; /* the most important property, to make it perfectly fit in mobile view */
 }
 
 /* Quick actions */
@@ -145,21 +146,20 @@ body {
 
 .transactions-wrapper {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* prevent stretching */
+  display: block;
+  overflow-x: auto; /* horizontal scroll when needed */
+  overflow-y: hidden; /* keep vertical hidden, so, it will look clean */
+  -webkit-overflow-scrolling: touch; /* it will make smooth scroll on iOS */
 }
 
-/* Table layout */
 table {
   border-collapse: collapse;
   border: 1px solid #333;
-  table-layout: fixed; /* keep columns aligned */
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  max-height: 60vh; /* now, the tbody will scroll when I fix the maximom height */
+  max-height: 60vh;
+  table-layout: auto; /* let columns size naturally */
+  display: table; /* restore normal table layout */
+  min-width: 600px; /* force scroll on small screens */
 }
 
 thead,
@@ -171,11 +171,9 @@ tfoot {
 }
 
 tbody {
-  flex: 1 1 auto; /* increase automatically to fill space */
-  display: block;
-  overflow-y: auto;
+  display: table; /* keep proper table structure */
   width: 100%;
-  overflow-x: hidden; /* it should not scroll left or right */
+  overflow-y: auto; /* only vertical scroll, and enable when necessary */
 }
 
 tbody tr {
@@ -199,8 +197,7 @@ td {
   border: 1px solid #333;
   padding: 10px;
   text-align: left;
-  word-wrap: break-word;
-  width: 90px;
+  width: auto; /* it's good because it lets the content decide width */
 }
 
 thead {
@@ -245,11 +242,11 @@ tfoot {
   }
 
   .sidebar button i {
-    margin: 0;
+    margin: 0px 8px;
   }
 
   .main {
-    margin-left: 60px;
+    margin-left: 20px;
   }
 }
 
@@ -262,13 +259,13 @@ tfoot {
     transform: translateX(-100%);
     position: fixed;
     z-index: 1000;
+    width: 100vw;
+    height: 100vh;
     transition: transform 0.7s ease-in-out;
   }
 
   .sidebar.active {
     transform: translateX(0);
-    width: 100vw;
-    height: 100vh;
   }
 
   .hamburger {
